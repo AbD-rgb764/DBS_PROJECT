@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Order #{{ order.OrderNo }} Details{% endblock %}
+
+{% block content %}
+<div class="admin-order-detail">
+    <h1>Order #{{ order.OrderNo }} Details</h1>
+    
+    <div class="order-info">
+        <h2>Order Information</h2>
+        <p><strong>Customer:</strong> {{ order.CustomerName }}</p>
+        <p><strong>Order Date:</strong> {{ order.Date }}</p>
+        <p><strong>Total Amount:</strong> ${{ order.Amount }}</p>
+        <p><strong>Invoice ID:</strong> {% if order.InvoiceID %}#{{ order.InvoiceID }}{% else %}Pending{% endif %}</p>
+        
+        <h3>Shipping Address</h3>
+        <p>{{ order.Address }}</p>
+        <p>{{ order.City }}, {{ order.Country }} {{ order.PinCode }}</p>
+    </div>
+    
+    <div class="order-items">
+        <h2>Order Items</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product ID</th>
+                    <th>Product Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td>{{ item.PID }}</td>
+                    <td>{{ item.Pname }}</td>
+                    <td>{{ item.Category }}</td>
+                    <td>${{ item.Price }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <a href="{{ url_for('admin_orders') }}" class="btn btn-secondary">Back to Orders</a>
+</div>
+{% endblock %}

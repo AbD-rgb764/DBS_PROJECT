@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="admin-dashboard">
+    <h1>Admin Dashboard</h1>
+    
+    <div class="stats-cards">
+        <div class="stat-card">
+            <h3>Total Orders</h3>
+            <p class="stat-number">{{ order_count }}</p>
+        </div>
+        <div class="stat-card">
+            <h3>Total Customers</h3>
+            <p class="stat-number">{{ user_count }}</p>
+        </div>
+        <div class="stat-card">
+            <h3>Total Products</h3>
+            <p class="stat-number">{{ product_count }}</p>
+        </div>
+    </div>
+    
+    <div class="recent-orders">
+        <h2>Recent Orders</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in recent_orders %}
+                <tr>
+                    <td>{{ order.OrderNo }}</td>
+                    <td>{{ order.Cname }}</td>
+                    <td>{{ order.Date }}</td>
+                    <td>${{ order.Amount }}</td>
+                    <td>
+                        <a href="{{ url_for('admin_order_detail', order_id=order.OrderNo) }}" class="btn btn-sm btn-info">View</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="admin-links">
+        <a href="{{ url_for('admin_orders') }}" class="btn btn-primary">Manage Orders</a>
+        <a href="{{ url_for('admin_products') }}" class="btn btn-primary">Manage Products</a>
+        <a href="{{ url_for('admin_users') }}" class="btn btn-primary">Manage Users</a>
+    </div>
+</div>
+{% endblock %}
