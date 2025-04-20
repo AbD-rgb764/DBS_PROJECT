@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<section class="hero">
+    {% if search_query %}
+        <h1>Search Results for "{{ search_query }}"</h1>
+    {% else %}
+        <h1>Welcome to Our E-commerce Store</h1>
+        <p>Find the best products at the best prices</p>
+    {% endif %}
+</section>
+
+<section class="products">
+    {% if search_query %}
+        <h2>Products matching "{{ search_query }}"</h2>
+    {% else %}
+        <h2>Featured Products</h2>
+    {% endif %}
+    
+    {% if products %}
+        <div class="product-grid">
+            {% for product in products %}
+            <div class="product-card">
+                <img src="{{ url_for('static', filename='img/product-placeholder.jpg') }}" alt="{{ product.Pname }}">
+                <div class="product-info">
+                    <h3>{{ product.Pname }}</h3>
+                    <p class="price">${{ product.Price }}</p>
+                    <a href="{{ url_for('product_detail', product_id=product.PID) }}" class="btn">View Details</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        {% if search_query %}
+            <p>No products found matching "{{ search_query }}".</p>
+        {% else %}
+            <p>No products available at this time.</p>
+        {% endif %}
+    {% endif %}
+</section>
+{% endblock %}

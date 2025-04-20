@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Your Profile{% endblock %}
+
+{% block content %}
+<div class="profile">
+    <h1>Your Profile</h1>
+    
+    <div class="profile-info">
+        <h2>Account Information</h2>
+        <p><strong>Name:</strong> {{ user.Cname }}</p>
+        <p><strong>Email:</strong> {{ user.Email }}</p>
+        <p><strong>Phone:</strong> {{ user.Phone }}</p>
+        
+        <h2>Address</h2>
+        <p>{{ user.Address }}</p>
+        
+        <a href="{{ url_for('edit_profile') }}" class="btn">Edit Profile</a>
+    </div>
+    
+    <div class="profile-actions">
+        <h2>Account Actions</h2>
+        <a href="{{ url_for('order_history') }}" class="btn">View Order History</a>
+    </div>
+</div>
+{% endblock %}

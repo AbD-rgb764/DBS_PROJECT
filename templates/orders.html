@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Order History{% endblock %}
+
+{% block content %}
+<div class="order-history">
+    <h1>Your Orders</h1>
+    
+    {% if orders %}
+        <div class="orders-list">
+            {% for order in orders %}
+            <div class="order-card">
+                <div class="order-header">
+                    <h3>Order #{{ order.OrderNo }}</h3>
+                    <p class="order-date">Placed on: {{ order.Date }}</p>
+                </div>
+                <div class="order-details">
+                    <p><strong>Total:</strong> ${{ order.Amount }}</p>
+                    <p><strong>Invoice:</strong> {% if order.InvoiceID %}#{{ order.InvoiceID }}{% else %}Pending{% endif %}</p>
+                </div>
+                <a href="{{ url_for('order_detail', order_id=order.OrderNo) }}" class="btn">View Details</a>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>You haven't placed any orders yet.</p>
+        <a href="{{ url_for('index') }}" class="btn">Start Shopping</a>
+    {% endif %}
+</div>
+{% endblock %}
